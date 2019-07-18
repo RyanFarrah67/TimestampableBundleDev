@@ -1,0 +1,29 @@
+parameters:
+
+services:
+
+    _defaults:
+      
+        autowire: true
+       
+        autoconfigure: true
+  
+        public: false
+
+  
+    TimestampableBundle\:
+        resource: '../../src/TimestampableBundle/*'
+   
+        exclude: '../../src/TimestampableBundle/{Entity,Repository,Tests}'
+
+    TimestampableBundle\Controller\:
+        resource: '../../src/TimestampableBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    mof.timestampable.timestampable_subscriber: 
+        class: Mof\Timestampable\Event\TimestampableSubscriber
+        arguments: 
+            - '@annotation_reader'
+        tags:  
+            - { name: doctrine.event_subscriber }
